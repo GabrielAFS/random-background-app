@@ -2,6 +2,8 @@
 
 React Native app that display the text "Hello there" in the middle of the screen and after tapping anywhere on the screen, a background color should be changed to a randomly generated color.
 
+PS.: By making a long press on the screen, you will turn on/off the "Crazy Mode".
+
 ## Get started
 
 1. Install dependencies
