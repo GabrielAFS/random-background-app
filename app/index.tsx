@@ -3,12 +3,13 @@ import {
   getComplementaryHexColor,
 } from "@/utils/generateColor";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
   const [backgroundColor, setBackgroundColor] = useState<string>("#ffffff");
   const [textColor, setTextColor] = useState<string>("#000000");
+  const [crazyMode, setCrazyMode] = useState<boolean>(false);
 
   const onTouchScreen = () => {
     const newBackgroundColor = generateHexColor();
@@ -18,8 +19,30 @@ export default function Index() {
     setTextColor(newTextColor);
   };
 
+  const onLongTouchScreen = () => {
+    setCrazyMode((prevValue) => !prevValue);
+  };
+
+  useEffect(() => {
+    let intervalId = null;
+
+    if (crazyMode) {
+      intervalId = setInterval(() => {
+        onTouchScreen();
+      }, 500);
+    }
+
+    return () => {
+      clearInterval(intervalId as NodeJS.Timeout);
+    };
+  }, [crazyMode]);
+
   return (
-    <Pressable style={styles.pressable} onPress={onTouchScreen}>
+    <Pressable
+      style={styles.pressable}
+      onPress={onTouchScreen}
+      onLongPress={onLongTouchScreen}
+    >
       <View style={{ ...styles.container, backgroundColor }}>
         <Text style={{ ...styles.text, color: textColor }}>Hello there</Text>
       </View>
