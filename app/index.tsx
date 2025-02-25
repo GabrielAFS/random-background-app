@@ -1,13 +1,18 @@
+import generateHexColor from "@/utils/generateColor";
+
+import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
+  const [backgroundColor, setBackgroundColor] = useState<string>("");
+
   const onTouchScreen = () => {
-    console.log("Pressing screen");
+    setBackgroundColor(generateHexColor());
   };
 
   return (
     <Pressable style={styles.pressable} onPress={onTouchScreen}>
-      <View style={styles.container}>
+      <View style={{ ...styles.container, backgroundColor }}>
         <Text style={styles.text}>Hello there</Text>
       </View>
     </Pressable>
