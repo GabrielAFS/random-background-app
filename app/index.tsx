@@ -11,7 +11,7 @@ export default function Index() {
   const [textColor, setTextColor] = useState<string>("#000000");
   const [crazyMode, setCrazyMode] = useState<boolean>(false);
 
-  const onTouchScreen = () => {
+  const handleChangeColors = () => {
     const newBackgroundColor = generateHexColor();
     const newTextColor = getComplementaryHexColor(newBackgroundColor);
 
@@ -19,7 +19,7 @@ export default function Index() {
     setTextColor(newTextColor);
   };
 
-  const onLongTouchScreen = () => {
+  const toggleCrazyMode = () => {
     setCrazyMode((prevValue) => !prevValue);
   };
 
@@ -28,7 +28,7 @@ export default function Index() {
 
     if (crazyMode) {
       intervalId = setInterval(() => {
-        onTouchScreen();
+        handleChangeColors();
       }, 500);
     }
 
@@ -40,8 +40,8 @@ export default function Index() {
   return (
     <Pressable
       style={styles.pressable}
-      onPress={onTouchScreen}
-      onLongPress={onLongTouchScreen}
+      onPress={handleChangeColors}
+      onLongPress={toggleCrazyMode}
     >
       <View style={{ ...styles.container, backgroundColor }}>
         <Text style={{ ...styles.text, color: textColor }}>Hello there</Text>
